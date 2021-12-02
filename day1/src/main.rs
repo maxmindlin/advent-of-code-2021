@@ -1,8 +1,8 @@
 fn main() {
     let f = std::fs::read_to_string("input/1.txt").unwrap();
     let input = parse_input(&f);
-    println!("ANSWER 1: {}", count(input.clone()));
-    println!("ANSWER 2: {}", count_windows(input));
+    println!("ANSWER 1: {}", count(&input));
+    println!("ANSWER 2: {}", count_windows(&input));
 }
 
 fn parse_input(input: &str) -> Vec<usize> {
@@ -14,7 +14,7 @@ fn parse_input(input: &str) -> Vec<usize> {
         .collect()
 }
 
-fn count(input: Vec<usize>) -> usize {
+fn count(input: &[usize]) -> usize {
     let mut curr = input[0];
     let mut count = 0;
     for i in 1..input.len() {
@@ -28,7 +28,7 @@ fn count(input: Vec<usize>) -> usize {
     count
 }
 
-fn count_windows(input: Vec<usize>) -> usize {
+fn count_windows(input: &[usize]) -> usize {
     let mut curr = std::usize::MAX;
     let mut count = 0;
     for w in input.windows(3) {
@@ -60,7 +60,7 @@ mod tests {
             260,
             263,
         ];
-        assert_eq!(count(input), 7);
+        assert_eq!(count(&input), 7);
     }
 
     #[test]
@@ -77,6 +77,6 @@ mod tests {
             260,
             263,
         ];
-        assert_eq!(count_windows(input), 5);
+        assert_eq!(count_windows(&input), 5);
     }
 }
