@@ -28,8 +28,6 @@ fn main() {
 fn parse_input(input: &str) -> Vec<Instr> {
     input
         .lines()
-        .map(|l| l.trim())
-        .filter(|l| !l.is_empty())
         .map(Instr::from)
         .collect()
 }
