@@ -64,7 +64,7 @@ impl From<&str> for Instr {
 impl From<&str> for InstrKind {
     fn from(s: &str) -> Self {
         match s {
-            "forward" | "foward" => Self::Fwd, // typo in puzzle?
+            "forward" => Self::Fwd,
             "up" => Self::Up,
             "down" => Self::Down,
             _ => panic!("unknown instruction {}", s),
