@@ -143,7 +143,7 @@ mod tests {
             .into_iter()
             .map(BitArray::from)
             .collect();
-        assert_eq!(calc_consumption(v), 198);
+        assert_eq!(calc_consumption(&v), 198);
     }
 
     #[test]
@@ -165,6 +165,6 @@ mod tests {
             .into_iter()
             .map(BitArray::from)
             .collect();
-        assert_eq!(calc_life_support(v), 230);
+        assert_eq!(calc_life_support(&v), 230);
     }
 }
