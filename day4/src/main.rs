@@ -121,7 +121,7 @@ impl Board {
         if let Some((row, col)) = self.indexes.get(&num) {
             let idx = row * self.len + col;
             let diff = self.len * self.len - (idx + 1);
-            self.spaces = self.spaces | 1 << diff;
+            self.spaces |= 1 << diff;
             self.indexes.remove(&num);
         }
     }
