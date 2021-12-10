@@ -25,9 +25,7 @@ fn solve1(input: &str) -> usize {
         }
     }
 
-    errors.iter()
-        .map(|c| pts.get(c).unwrap())
-        .sum()
+    errors.iter().map(|c| pts.get(c).unwrap()).sum()
 }
 
 fn solve2(input: &str) -> usize {
@@ -79,14 +77,14 @@ fn closing(c: char) -> char {
         '{' => '}',
         '(' => ')',
         '<' => '>',
-        _ => panic!("unknown char {}", c)
+        _ => panic!("unknown char {}", c),
     }
 }
 
 fn is_opener(c: char) -> bool {
     match c {
-        '['|'{'|'('|'<' => true,
-        _ => false
+        '[' | '{' | '(' | '<' => true,
+        _ => false,
     }
 }
 
