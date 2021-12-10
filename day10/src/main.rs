@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 #[derive(Debug, PartialEq, Eq)]
 enum LineResult {
     Error(char),
@@ -13,11 +11,13 @@ fn main() {
 }
 
 fn solve1(input: &str) -> usize {
-    let mut pts: HashMap<char, usize> = HashMap::new();
-    pts.insert(')', 3);
-    pts.insert(']', 57);
-    pts.insert('}', 1197);
-    pts.insert('>', 25137);
+    let cost = |c: char| match c {
+        ')' => 3,
+        ']' => 57,
+        '}' => 1197,
+        '>' => 25137,
+        _ => panic!("unknown char"),
+    };
     let mut errors: Vec<char> = Vec::new();
     for l in input.lines() {
         if let LineResult::Error(err) = check_line(l) {
@@ -25,7 +25,7 @@ fn solve1(input: &str) -> usize {
         }
     }
 
-    errors.iter().map(|c| pts.get(c).unwrap()).sum()
+    errors.iter().map(|c| cost(*c)).sum()
 }
 
 fn solve2(input: &str) -> usize {
@@ -41,14 +41,16 @@ fn solve2(input: &str) -> usize {
 }
 
 fn calc_incomplete_score(v: Vec<char>) -> usize {
-    let mut pts = HashMap::new();
-    pts.insert(')', 1);
-    pts.insert(']', 2);
-    pts.insert('}', 3);
-    pts.insert('>', 4);
+    let cost = |c: char| match c {
+        ')' => 1,
+        ']' => 2,
+        '}' => 3,
+        '>' => 4,
+        _ => panic!("unknown char"),
+    };
     v.iter()
         .rev()
-        .map(|c| pts.get(&closing(*c)).unwrap())
+        .map(|c| cost(closing(*c)))
         .fold(0, |acc, v| acc * 5 + v)
 }
 
