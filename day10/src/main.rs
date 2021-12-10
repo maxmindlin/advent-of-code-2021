@@ -85,10 +85,7 @@ fn closing(c: char) -> char {
 
 fn is_opener(c: char) -> bool {
     match c {
-        '[' => true,
-        '{' => true,
-        '(' => true,
-        '<' => true,
+        '['|'{'|'('|'<' => true,
         _ => false
     }
 }
