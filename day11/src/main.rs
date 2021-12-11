@@ -24,35 +24,35 @@ impl Grid {
     fn incr(&mut self) {
         let mut exploded: HashSet<Pt> = HashSet::new();
         let mut next: Vec<Pt> = Vec::new();
+
+        // Find initial explosions
         for y in 0..self.height {
             for x in 0..self.width {
                 let pt = Pt::new(x, y);
-                if !exploded.contains(&pt) {
-                    let mut val = self.spaces[y][x] + 1;
-                    if val > 9 {
-                        exploded.insert(pt);
-                        val = 0;
-                        self.check_adj(&mut next, &pt);
-                    }
-                    self.spaces[y][x] = val;
-                }
+                self.check_explode(&mut next, &mut exploded, &pt);
             }
         }
 
-        while !next.is_empty() {
-            let p = next.pop().unwrap();
-            if !exploded.contains(&p) {
-                let mut val = self.spaces[p.y][p.x] + 1;
-                if val > 9 {
-                    exploded.insert(p);
-                    val = 0;
-                    self.check_adj(&mut next, &p);
-                }
-                self.spaces[p.y][p.x] = val;
-            }
+        // Walk chain reactions
+        while let Some(p) = next.pop() {
+            self.check_explode(&mut next, &mut exploded, &p);
         }
 
         self.exploded += exploded.len();
+    }
+
+    fn check_explode(&mut self, buf: &mut Vec<Pt>, set: &mut HashSet<Pt>, pt: &Pt) {
+        if set.contains(&pt) {
+            return;
+        }
+
+        let mut val = self.spaces[pt.y][pt.x] + 1;
+        if val > 9 {
+            val = 0;
+            self.check_adj(buf, pt);
+            set.insert(*pt);
+        }
+        self.spaces[pt.y][pt.x] = val;
     }
 
     fn incr_n(&mut self, n: usize) {
