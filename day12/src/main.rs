@@ -78,7 +78,7 @@ impl From<&str> for Graph {
             // but can still be presenting in the input like the rest. So we need to
             // make sure to only add an edge one way if the node we are parsing
             // is connected to either the start or end..
-            if &n1.val == "start" || &n2.val == "start" {
+            if v.contains(&"start") {
                 let (s, n) = if &n1.val == "start" {
                     (n1, n2)
                 } else {
@@ -87,7 +87,7 @@ impl From<&str> for Graph {
 
                 let e = nodes.entry(s).or_insert(vec![]);
                 e.push(n);
-            } else if &n1.val == "end" || &n2.val == "end" {
+            } else if v.contains(&"end") {
                 let (n, e) = if &n1.val == "end" { (n2, n1) } else { (n1, n2) };
 
                 let en = nodes.entry(n).or_insert(vec![]);
