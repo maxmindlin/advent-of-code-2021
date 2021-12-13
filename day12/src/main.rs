@@ -74,6 +74,10 @@ impl From<&str> for Graph {
             let n1 = Node::from(v[0]);
             let n2 = Node::from(v[1]);
 
+            // start and end nodes are not undirected like the rest of the nodes,
+            // but can still be presenting in the input like the rest. So we need to
+            // make sure to only add an edge one way if the node we are parsing
+            // is connected to either the start or end..
             if &n1.val == "start" || &n2.val == "start" {
                 let (s, n) = if &n1.val == "start" {
                     (n1, n2)
