@@ -50,7 +50,7 @@ impl Graph {
         } else {
             if let Some(edges) = self.nodes.get(&start) {
                 for node in edges {
-                    let any_2 = visited.iter().filter(|(_, v)| **v == 2).count() == 1;
+                    let any_2 = visited.iter().any(|(_, v)| *v == 2);
                     let v_count = visited.get(node).unwrap_or(&0);
                     if *v_count == 0 || (*v_count == 1 && !any_2) {
                         self.dfs(node.clone(), t.clone(), visited, path, count);
